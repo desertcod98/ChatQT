@@ -1,3 +1,5 @@
+import connection.Connection;
+
 import java.io.IOException;
 import java.net.Socket;
 import java.util.Scanner;
@@ -9,6 +11,6 @@ public class Main {
         System.out.print("Enter a username: ");
         String username = scanner.nextLine();
 
-
+        Connection conn = new Connection("127.0.0.1", 5555, username);
     }
 }
