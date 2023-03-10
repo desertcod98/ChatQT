@@ -1,8 +1,11 @@
 package protocol;
 
+import connection.ConnHandler;
+import protocol.commands.PrivateMessage;
 import protocol.commands.Users;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Optional;
 
 public class CommandRegistry {
@@ -20,14 +23,15 @@ public class CommandRegistry {
         return instance;
     }
 
-    public Optional<String> tryExecute(String commandMessage){
-        String[] commandParts = commandMessage.substring(1).split(" ");
-        Optional<Command> optionalCommand = getCommandByKeyword(commandParts[0]);
+    public CommandResult tryExecute(ConnHandler commander, String commandMessage){
+        String[] commandSplit = commandMessage.substring(1).split(" ");
+        Optional<Command> optionalCommand = getCommandByKeyword(commandSplit[0]);
         if(optionalCommand.isPresent()){
             Command command = optionalCommand.get();
-            return Optional.of(command.execute()); //TODO implement args ecc
+            String[] args = Arrays.copyOfRange(commandSplit, 1,commandSplit.length);
+            return command.execute(commander, args);
         }
-        return Optional.empty();
+        return new CommandResult(ResultType.NOT_FOUND);
     }
 
     private Optional<Command> getCommandByKeyword(String keyword){
@@ -42,5 +46,6 @@ public class CommandRegistry {
 
     private void fillCommands(){
         commands.add(new Users());
+        commands.add(new PrivateMessage());
     }
 }

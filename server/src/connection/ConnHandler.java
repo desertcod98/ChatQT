@@ -2,10 +2,14 @@ package connection;
 
 import io.Logger;
 import protocol.CommandRegistry;
+import protocol.CommandResult;
+import protocol.ResultType;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.Optional;
 
 public class ConnHandler implements Runnable{
     private Socket clientSocket;
@@ -39,12 +43,14 @@ public class ConnHandler implements Runnable{
                     break;
                 }
                 if(message.startsWith("/")) {
-                    Optional<String> result;
-                    if((result = CommandRegistry.getInstance().tryExecute(message)).isPresent()){
-                        sendMessage(result.get());
-                    }else{
+                    CommandResult result;
+                    result = CommandRegistry.getInstance().tryExecute(this,message);
+                    if(result.getType() == ResultType.NOT_FOUND){
                         sendMessage("Invalid command: "+message);
+                    } else if (result.getResult().isPresent()) {
+                        sendMessage(result.getResult().get());
                     }
+
                 }else{
                     ActiveConnections.getInstance().broadcast(String.format("[%s] %s", username, message));
                 }
@@ -54,7 +60,6 @@ public class ConnHandler implements Runnable{
                 break;
             }
         }
-
     }
 
     public void sendMessage(String message){
