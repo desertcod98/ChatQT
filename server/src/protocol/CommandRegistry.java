@@ -1,6 +1,7 @@
 package protocol;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class CommandRegistry {
     private static CommandRegistry instance;
@@ -13,5 +14,10 @@ public class CommandRegistry {
             instance = new CommandRegistry();
         }
         return instance;
+    }
+
+    public Optional<String> tryExecute(String command){
+
+        return Optional.empty();
     }
 }

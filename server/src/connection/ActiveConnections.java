@@ -1,5 +1,7 @@
 package connection;
 
+import io.Logger;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -21,10 +23,15 @@ public class ActiveConnections {
     }
 
     public void removeConnection(ConnHandler connHandler){
+        Logger.notify(String.format("%s (%s) %s", connHandler.getClientUsername(), connHandler.getIpString(), "disconnected"));
+        broadcast(connHandler.getClientUsername() + " disconnected");
         activeConnections.remove(connHandler);
     }
 
     public List<ConnHandler> getActiveConnections(){
         return Collections.unmodifiableList(activeConnections); //caller only needs to read the list
+    }
+    public void broadcast(String message) {
+        activeConnections.forEach(connHandler -> connHandler.sendMessage(message));
     }
 }
