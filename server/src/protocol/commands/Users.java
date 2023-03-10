@@ -6,15 +6,18 @@ import protocol.Command;
 
 public class Users extends Command {
 
-    protected Users() {
+    public Users() {
         super("USERS");
     }
 
-    public String execute(){
-        StringBuilder users = new StringBuilder();
-        for (ConnHandler connHandler : ActiveConnections.getInstance().getActiveConnections()){
-            users.append(connHandler.getClientUsername()).append("\n");
-        }
-        return users.toString();
+    public String execute() {
+        StringBuilder result = new StringBuilder();
+        result.append("--ONLINE USERS--");
+
+        //add users to result
+        ActiveConnections.getInstance().getActiveConnections().forEach((connection) -> {
+            result.append("\n").append(connection.getClientUsername());
+        });
+        return result.toString();
     }
 }

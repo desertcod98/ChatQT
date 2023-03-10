@@ -5,6 +5,7 @@ import protocol.CommandRegistry;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.Optional;
 
 public class ConnHandler implements Runnable{
     private Socket clientSocket;
@@ -38,7 +39,12 @@ public class ConnHandler implements Runnable{
                     break;
                 }
                 if(message.startsWith("/")) {
-                    CommandRegistry.getInstance().tryExecute(message);
+                    Optional<String> result;
+                    if((result = CommandRegistry.getInstance().tryExecute(message)).isPresent()){
+                        sendMessage(result.get());
+                    }else{
+                        sendMessage("Invalid command: "+message);
+                    }
                 }else{
                     ActiveConnections.getInstance().broadcast(String.format("[%s] %s", username, message));
                 }
