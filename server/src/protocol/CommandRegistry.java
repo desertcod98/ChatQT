@@ -28,7 +28,7 @@ public class CommandRegistry {
         Optional<Command> optionalCommand = getCommandByKeyword(commandSplit[0]);
         if(optionalCommand.isPresent()){
             Command command = optionalCommand.get();
-            String[] args = Arrays.copyOfRange(commandSplit, 1,commandSplit.length);
+            String[] args = Arrays.copyOfRange(commandSplit, 1,commandSplit.length); //TODO big issue, in private message the second arg has spaces
             return command.execute(commander, args);
         }
         return new CommandResult(ResultType.NOT_FOUND);
