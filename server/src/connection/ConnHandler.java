@@ -19,9 +19,10 @@ public class ConnHandler implements Runnable{
 
     public ConnHandler(Socket clientSocket) throws IOException {
         this.clientSocket = clientSocket;
-        ActiveConnections.getInstance().addConnection(this);
+
         in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
         out = new PrintWriter(clientSocket.getOutputStream(), true);
+        ActiveConnections.getInstance().addConnection(this);
     }
 
     @Override
