@@ -13,8 +13,6 @@ public class Quit extends Command {
 
     public CommandResult execute(ConnHandler commander, String[] args) {
         commander.shutdown();
-        System.out.println("l");
-        ActiveConnections.getInstance().removeConnection(commander);
         return new CommandResult(ResultType.COMPLETED);
     }
 

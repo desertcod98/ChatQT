@@ -15,6 +15,7 @@ public class ConnHandler implements Runnable{
     private Socket clientSocket;
     private BufferedReader in;
     private PrintWriter out;
+    private boolean active;
     private String username;
 
     public ConnHandler(Socket clientSocket) throws IOException {
@@ -23,6 +24,7 @@ public class ConnHandler implements Runnable{
         in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
         out = new PrintWriter(clientSocket.getOutputStream(), true);
         ActiveConnections.getInstance().addConnection(this);
+        active = true;
     }
 
     @Override
@@ -36,7 +38,7 @@ public class ConnHandler implements Runnable{
             shutdown();
         }
 
-        while (true){
+        while (active){
             try {
                 String message = in.readLine();
                 if(message == null){
@@ -74,6 +76,7 @@ public class ConnHandler implements Runnable{
         } catch (IOException e) {
             Logger.error("Failed to close socket "+clientSocket.getInetAddress().getHostAddress());
         }
+        active = false;
     }
 
     public String getClientUsername(){
