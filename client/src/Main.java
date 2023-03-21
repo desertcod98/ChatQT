@@ -28,11 +28,11 @@ public class Main {
 
         while (true){
             String message = scanner.nextLine();
-            if(message.equalsIgnoreCase("/quit")){
+            conn.sendMessage(message);
+            if(message.equalsIgnoreCase("/quit")) {
                 conn.shutdown();
                 break;
             }
-            conn.sendMessage(message);
         }
     }
 }
