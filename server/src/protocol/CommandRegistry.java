@@ -2,6 +2,7 @@ package protocol;
 
 import connection.ConnHandler;
 import protocol.commands.PrivateMessage;
+import protocol.commands.Quit;
 import protocol.commands.Users;
 
 import java.util.ArrayList;
@@ -47,5 +48,6 @@ public class CommandRegistry {
     private void fillCommands(){
         commands.add(new Users());
         commands.add(new PrivateMessage());
+        commands.add(new Quit());
     }
 }
