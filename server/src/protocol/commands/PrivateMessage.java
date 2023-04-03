@@ -10,8 +10,6 @@ import java.util.Arrays;
 import java.util.Optional;
 
 public class PrivateMessage extends Command {
-
-
     public PrivateMessage() {
         super("m"); //TODO implement multiple aliases
     }
@@ -36,6 +34,4 @@ public class PrivateMessage extends Command {
         return "Send a private message to another user\n" +
                 "Usage: /m [user] [message]";
     }
-
-
 }

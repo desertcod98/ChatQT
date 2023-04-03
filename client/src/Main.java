@@ -1,5 +1,7 @@
 import connection.Connection;
 
+
+import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -46,11 +48,11 @@ public class Main {
 
         while (true){
             String message = scanner.nextLine();
-            finalConnection.sendMessage(message);
             if(message.equalsIgnoreCase("/quit")) {
                 finalConnection.shutdown();
                 break;
             }
+            finalConnection.sendMessage(message);
         }
     }
 }

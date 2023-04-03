@@ -1,9 +1,7 @@
 package protocol;
 
 import connection.ConnHandler;
-import protocol.commands.PrivateMessage;
-import protocol.commands.Quit;
-import protocol.commands.Users;
+import protocol.commands.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -49,5 +47,6 @@ public class CommandRegistry {
         commands.add(new Users());
         commands.add(new PrivateMessage());
         commands.add(new Quit());
+
     }
 }
