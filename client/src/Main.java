@@ -1,4 +1,5 @@
 import connection.Connection;
+import io.Logger;
 
 
 import java.io.File;
@@ -30,6 +31,7 @@ public class Main {
             }
         } while (connection == null);
 
+        Logger.showCommands();
 
         Connection finalConnection = connection; //this is to make the lambda expression happy
         Thread getMessagesThread = new Thread(()->{
