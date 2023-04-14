@@ -42,11 +42,9 @@ public class CommandRegistry {
         return Optional.empty();
     }
 
-
     private void fillCommands(){
         commands.add(new Users());
         commands.add(new PrivateMessage());
         commands.add(new Quit());
-
     }
 }
