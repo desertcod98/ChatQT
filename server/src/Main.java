@@ -1,3 +1,4 @@
+import connection.ActiveConnections;
 import connection.ConnListener;
 
 import java.io.IOException;
@@ -24,6 +25,11 @@ public class Main {
 
         System.out.println("Starting server on port "+port);
         ConnListener listener = new ConnListener(port);
+
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            ActiveConnections.getInstance().closeAllConnections();
+        }));
+
         try {
             listener.listen();
         } catch (IOException e) {

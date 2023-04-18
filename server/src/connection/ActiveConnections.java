@@ -48,4 +48,9 @@ public class ActiveConnections {
                 .filter(connHandler -> connHandler.getClientUsername().equalsIgnoreCase(username.trim()))
                 .findFirst();
     }
+
+    public void closeAllConnections(){
+        activeConnections.forEach(ConnHandler::shutdown);
+        activeConnections.clear();
+    }
 }

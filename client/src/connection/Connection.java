@@ -41,6 +41,7 @@ public class Connection {
     public void shutdown(){
         try {
             socket.close();
+            System.exit(0); //TODO terrible fix because when connections shuts down the program stops in Main line 56 (readline)
         } catch (IOException e) {
             Logger.error("Failed to close socket "+socket.getInetAddress().getHostAddress());
         }

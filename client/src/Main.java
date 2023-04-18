@@ -38,6 +38,10 @@ public class Main {
             while (finalConnection.isActive()){
                 try {
                     String message = finalConnection.getMessage();
+                    if(message == null){
+                        finalConnection.shutdown();
+                        break;
+                    }
                     System.out.println(message);
                 } catch (IOException e) {
                     finalConnection.shutdown();
@@ -48,7 +52,7 @@ public class Main {
 
         getMessagesThread.start();
 
-        while (true){
+        while (finalConnection.isActive()){
             String message = scanner.nextLine();
             if(message.equalsIgnoreCase("/quit")) {
                 finalConnection.shutdown();
