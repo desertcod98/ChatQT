@@ -6,9 +6,10 @@ public class Logger {
     }
 
     public static void showCommands(){
-        System.out.println("Comandi disponibili:\n" +
-                "/users : mostra gli utenti online al momento\n" +
-                "/m [user] [message] : manda un messaggio [message] privato a un utente [user]\n" +
-                "/quit : chiude la connessione con il server");
+        System.out.println("""
+                Available commands:
+                /users : shows online users
+                /m [user] [message] : sends a private message [message] to a specified user [user]
+                /quit : closes connection to server""");
     }
 }
